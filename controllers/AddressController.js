@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 module.exports = class AddressController {
   constructor(addressService) {
     this.addressService = addressService;
@@ -17,9 +18,12 @@ module.exports = class AddressController {
     const address = req.body;
 
     try {
-      res.json(await this.addressService.postAddress(address));
+      res.status(201).json(await this.addressService.postAddress(address));
     } catch (err) {
-      res.json(err.message);
+        if(err instanceof mongoose.Error.ValidationError) {
+            return res.status(422).json(err.message)
+        }
+      return res.json(err.message);
     }
   }
 };
