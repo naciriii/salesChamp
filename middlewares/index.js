@@ -1,5 +1,5 @@
-const checkHeader = require('./checkHeader')
+const checkHeader = require('./checkHeader');
 
 module.exports = [
-    checkHeader
-]
+  checkHeader,
+];
